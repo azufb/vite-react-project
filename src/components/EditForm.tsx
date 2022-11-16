@@ -5,19 +5,23 @@ import { editTaskSelector } from "../recoil/recoilState";
 const EditForm = (props: any) => {
     const { register, handleSubmit } = useForm({
         defaultValues: {
+            id: props.id,
             title: props.title
         }
     });
     const setEditTask = useSetRecoilState(editTaskSelector);
 
     const updateTask = (data: any) => {
-        setEditTask(data);
+        const updateData = {
+            id: props.id,
+            title: data.title
+        }
+        setEditTask(updateData);
     }
 
     return (
         <form onSubmit={handleSubmit(updateTask)}>
-            <label htmlFor="editTask">タスク：</label>
-            <input id="editTask" {...register('title')} />
+            <input {...register('title')} />
             <button type='submit'>UPDATE</button>
         </form>
     );
