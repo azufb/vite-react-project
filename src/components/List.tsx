@@ -9,6 +9,7 @@ const List = () => {
             {allTasks.map((task: any, index: number) => (
                 <div key={index}>
                     <p>{task.taskTitle}</p>
+                    <button>Edit</button>
                 </div>
             ))}
         </div>
