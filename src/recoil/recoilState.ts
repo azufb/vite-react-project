@@ -6,7 +6,7 @@ export type allTasksAtomType = {
 }[];
 
 export type editTargetTaskAtomType = {
-    id: number;
+    id: number | undefined;
     title: string;
 };
 
@@ -17,9 +17,12 @@ const allTasksAtom = atom<allTasksAtomType>({
 });
 
 // 編集対象タスクAtom
-const editTargetTaskAtom = atom<editTargetTaskAtomType | undefined>({
+const editTargetTaskAtom = atom<editTargetTaskAtomType>({
     key: 'editTargetTaskAtom',
-    default: undefined
+    default: {
+        id: undefined,
+        title: ''
+    }
 });
 
 // タスク追加のSelector
@@ -72,8 +75,12 @@ const editTaskSelector = selector({
         const newTasksArray: allTasksAtomType = get(allTasksAtom).map((task: any) => {
             if (task.id === targetId) {
                 return {...task, title: newTitle}
+            } else {
+                return task;
             }
         });
+
+        console.log('new:', newTasksArray);
 
         set(allTasksAtom, newTasksArray);
     }
