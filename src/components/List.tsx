@@ -1,14 +1,14 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { allTasksAtom, allTasksAtomType, changeTaskEditableSelector, deleteTaskSelector } from '../recoil/recoilState';
+import { allTasksAtom, allTasksAtomType, deleteTaskSelector } from '../recoil/recoilState';
 import EditForm from "./EditForm";
 
 const List = () => {
     const allTasks = useRecoilValue<allTasksAtomType>(allTasksAtom);
-    const setChangeTaskEditable = useSetRecoilState(changeTaskEditableSelector);
+    //const setChangeTaskEditable = useSetRecoilState(changeTaskEditableSelector);
     const setDeleteTask = useSetRecoilState(deleteTaskSelector);
 
     const changeEditable = (targetTask: any): void => {
-        setChangeTaskEditable(targetTask.id);
+        //setChangeTaskEditable(targetTask.id);
     }
 
     return (
