@@ -3,6 +3,7 @@ import { atom, selector } from "recoil";
 export type allTasksAtomType = {
     id: number;
     title: string;
+    edit: boolean;
 }[];
 
 export type editTargetTaskAtomType = {
@@ -36,7 +37,8 @@ const addTaskSelector = selector<any>({
         const newId = arrayLength === 0 ? 1 : arrayLength + 1;
         const addTaskParam = {
             id: newId,
-            title: newValue
+            title: newValue,
+            edit: false
         };
 
         set(allTasksAtom, [...get(allTasksAtom), addTaskParam]);
@@ -44,7 +46,7 @@ const addTaskSelector = selector<any>({
 });
 
 // タスク編集を可能にするSelector
-/*const changeTaskEditableSelector = selector({
+const changeTaskEditableSelector = selector({
     key: 'changeTaskEditableSelector',
     get: ({ get }) => {
         return get(allTasksAtom);
@@ -55,12 +57,14 @@ const addTaskSelector = selector<any>({
         const changedTargetEditableArray: allTasksAtomType = get(allTasksAtom).map((task: any) => {
             if (task.id === targetId) {
                 return {...task, edit: true}
+            } else {
+                return task;
             }
         });
 
         set(allTasksAtom, changedTargetEditableArray)
     }
-});*/
+});
 
 // タスク編集のSelector
 const editTaskSelector = selector({
@@ -74,13 +78,11 @@ const editTaskSelector = selector({
 
         const newTasksArray: allTasksAtomType = get(allTasksAtom).map((task: any) => {
             if (task.id === targetId) {
-                return {...task, title: newTitle}
+                return {...task, title: newTitle, edit: false}
             } else {
                 return task;
             }
         });
-
-        console.log('new:', newTasksArray);
 
         set(allTasksAtom, newTasksArray);
     }
@@ -107,7 +109,7 @@ export {
     allTasksAtom,
     editTargetTaskAtom,
     addTaskSelector,
-    //changeTaskEditableSelector,
+    changeTaskEditableSelector,
     editTaskSelector,
     deleteTaskSelector
 }
