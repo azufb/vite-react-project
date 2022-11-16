@@ -28,12 +28,10 @@ const EditForm = (props: any) => {
 
     return (
         <div>
-            {props.isOpen && (
-                <form onSubmit={handleSubmit(updateTask)}>
-                    <input {...register('title')} />
-                    <button type='submit'>UPDATE</button>
-                </form>
-            )}
+            <form onSubmit={handleSubmit(updateTask)}>
+                <input {...register('title')} />
+                <button type='submit'>UPDATE</button>
+            </form>
         </div>
     );
 };
