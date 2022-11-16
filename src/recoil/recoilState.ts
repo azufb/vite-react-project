@@ -48,7 +48,7 @@ const changeTaskEditableSelector = selector({
 
         set(allTasksAtom, changedTargetEditableArray)
     }
-})
+});
 
 // タスク編集のSelector
 const editTaskSelector = selector({
@@ -68,11 +68,29 @@ const editTaskSelector = selector({
 
         set(allTasksAtom, newTasksArray);
     }
+});
+
+// タスク削除のSelector
+const deleteTaskSelector = selector({
+    key: 'deleteTaskSelector',
+    get: ({ get }) => {
+        return get(allTasksAtom);
+    },
+    set: ({ get, set }, newValue: any) => {
+        const targetId = newValue.id;
+
+        const deletedArray: allTasksAtomType = get(allTasksAtom).filter((task: any) => {
+            return task.id !== targetId;
+        });
+
+        set(allTasksAtom, deletedArray);
+    }
 })
 
 export {
     allTasksAtom,
     addTaskSelector,
     changeTaskEditableSelector,
-    editTaskSelector
+    editTaskSelector,
+    deleteTaskSelector
 }
