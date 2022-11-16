@@ -1,7 +1,8 @@
 import { atom, selector } from "recoil";
 
 export type allTasksAtomType = {
-    taskTitle: string
+    id: number;
+    title: string;
 }[];
 
 // 全タスクAtom
@@ -17,15 +18,39 @@ const addTaskSelector = selector<any>({
         return get(allTasksAtom);
     },
     set: ({ set, get }, newValue: any) => {
+        const arrayLength = get(allTasksAtom).length;
+        const newId = arrayLength === 0 ? 0 : arrayLength + 1;
         const addTaskParam = {
-            taskTitle: newValue
+            id: newId,
+            title: newValue
         };
 
         set(allTasksAtom, [...get(allTasksAtom), addTaskParam]);
     }
 });
 
+// タスク編集のSelector
+const editTaskSelector = selector({
+    key: 'editTaskSelector',
+    get: ({ get }) => {
+        return get(allTasksAtom);
+    },
+    set: ({ get, set }, newValue: any) => {
+        const targetId = newValue.id;
+        const newTitle = newValue.title;
+
+        const newTasksArray = get(allTasksAtom).map((task: any) => {
+            if (task.id === targetId) {
+                return {...task, title: newTitle}
+            }
+        });
+
+        set(allTasksAtom, newTasksArray);
+    }
+})
+
 export {
     allTasksAtom,
-    addTaskSelector
+    addTaskSelector,
+    editTaskSelector
 }
