@@ -22,9 +22,11 @@ const addTaskSelector = selector<any>({
     set: ({ set, get }, newValue: any) => {
         const arrayLength = get(allTasksAtom).length;
         const newId = arrayLength === 0 ? 1 : arrayLength + 1;
+        const newTitle = newValue.title;
+
         const addTaskParam = {
             id: newId,
-            title: newValue,
+            title: newTitle,
             edit: false,
             isCompleted: false
         };
@@ -40,7 +42,7 @@ const changeTaskEditableSelector = selector({
         return get(allTasksAtom);
     },
     set: ({ get, set }, newValue: any) => {
-        const targetId = newValue;
+        const targetId = newValue.id;
 
         const changedTargetEditableArray: allTasksAtomType = get(allTasksAtom).map((task: any) => {
             if (task.id === targetId) {

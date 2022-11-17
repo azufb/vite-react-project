@@ -3,17 +3,19 @@ import { useSetRecoilState } from "recoil";
 import { addTaskSelector } from '../recoil/recoilState';
 
 const AddForm = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const setAddTask = useSetRecoilState(addTaskSelector);
 
     const addTask = (data: any) => {
-        setAddTask(data.task);
+        setAddTask(data);
+
+        reset(); // フォームを空にする
     }
 
     return (
         <form onSubmit={handleSubmit(addTask)}>
-            <label htmlFor="task">タスク：</label>
-            <input id="task" {...register('task')} />
+            <label htmlFor="title">タスク：</label>
+            <input id="title" {...register('title')} />
             <button type='submit'>ADD</button>
         </form>
     );
