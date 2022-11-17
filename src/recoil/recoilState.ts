@@ -4,26 +4,13 @@ export type allTasksAtomType = {
     id: number;
     title: string;
     edit: boolean;
+    isCompleted: boolean;
 }[];
-
-export type editTargetTaskAtomType = {
-    id: number | undefined;
-    title: string;
-};
 
 // 全タスクAtom
 const allTasksAtom = atom<allTasksAtomType>({
     key: 'allTasksAtom',
     default: []
-});
-
-// 編集対象タスクAtom
-const editTargetTaskAtom = atom<editTargetTaskAtomType>({
-    key: 'editTargetTaskAtom',
-    default: {
-        id: undefined,
-        title: ''
-    }
 });
 
 // タスク追加のSelector
@@ -38,7 +25,8 @@ const addTaskSelector = selector<any>({
         const addTaskParam = {
             id: newId,
             title: newValue,
-            edit: false
+            edit: false,
+            isCompleted: false
         };
 
         set(allTasksAtom, [...get(allTasksAtom), addTaskParam]);
@@ -103,13 +91,35 @@ const deleteTaskSelector = selector({
 
         set(allTasksAtom, deletedArray);
     }
-})
+});
+
+// タスクの完了状態を切り替えるSelector
+const changeTaskIsCompleted = selector({
+    key: 'changeTaskIsCompleted',
+    get: ({ get }) => {
+        return get(allTasksAtom);
+    },
+    set: ({ get, set }, newValue: any) => {
+        const targetId: number = newValue.id;
+        const targetIsCompleted: boolean = newValue.isCompleted;
+
+        const newTasksArray: allTasksAtomType = get(allTasksAtom).map((task: any) => {
+            if (task.id === targetId) {
+                return {...task, isCompleted: !targetIsCompleted}
+            } else {
+                return task;
+            }
+        });
+
+        set(allTasksAtom, newTasksArray);
+    }
+});
 
 export {
     allTasksAtom,
-    editTargetTaskAtom,
     addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
-    deleteTaskSelector
+    deleteTaskSelector,
+    changeTaskIsCompleted
 }

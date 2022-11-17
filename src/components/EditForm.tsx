@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import { editTaskSelector } from "../recoil/recoilState";
-import { modalStateAtom } from "../recoil/modalState";
 
 const EditForm = (props: any) => {
     const { register, handleSubmit } = useForm({
@@ -11,7 +10,6 @@ const EditForm = (props: any) => {
         }
     });
     const setEditTask = useSetRecoilState(editTaskSelector);
-    const setModalState = useSetRecoilState(modalStateAtom);
 
     const updateTask = (data: any) => {
         const updateData = {
@@ -19,11 +17,6 @@ const EditForm = (props: any) => {
             title: data.title
         }
         setEditTask(updateData);
-
-        setModalState((currentState) => ({
-            ...currentState,
-            editTask: false
-        }));
     }
 
     return (
