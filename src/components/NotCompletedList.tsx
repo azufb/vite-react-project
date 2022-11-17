@@ -1,9 +1,9 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { changeTaskIsCompleted, deleteTaskSelector, showTaskNotCompletedSelector } from "../recoil/recoilState";
+import { changeTaskIsCompletedSelector, deleteTaskSelector, showTaskNotCompletedSelector } from "../recoil/recoilState";
 
 const NotCompletedList = () => {
     const notCompletedTasks = useRecoilValue(showTaskNotCompletedSelector);
-    const setChangeTaskIsCompleted = useSetRecoilState(changeTaskIsCompleted);
+    const setChangeTaskIsCompleted = useSetRecoilState(changeTaskIsCompletedSelector);
     const setDeleteTask = useSetRecoilState(deleteTaskSelector);
 
     return (

@@ -94,8 +94,8 @@ const deleteTaskSelector = selector({
 });
 
 // タスクの完了状態を切り替えるSelector
-const changeTaskIsCompleted = selector({
-    key: 'changeTaskIsCompleted',
+const changeTaskIsCompletedSelector = selector({
+    key: 'changeTaskIsCompletedSelector',
     get: ({ get }) => {
         return get(allTasksAtom);
     },
@@ -145,7 +145,7 @@ export {
     changeTaskEditableSelector,
     editTaskSelector,
     deleteTaskSelector,
-    changeTaskIsCompleted,
+    changeTaskIsCompletedSelector,
     showTaskCompletedSelector,
     showTaskNotCompletedSelector
 }
