@@ -1,6 +1,7 @@
 import './App.css';
 import AddForm from './components/AddForm';
 import List from './components/List';
+import NotCompletedList from './components/NotCompletedList';
 import CompletedList from './components/CompletedList';
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
       <h1>Todo List</h1>
       <AddForm />
       <List />
+      <NotCompletedList />
       <CompletedList />
     </div>
   );
