@@ -105,7 +105,29 @@ const deleteTaskSelector = selector({
 
         set(allTasksAtom, deletedArray);
     }
-})
+});
+
+// タスクの完了状態を切り替えるSelector
+const changeTaskIsCompleted = selector({
+    key: 'changeTaskIsCompleted',
+    get: ({ get }) => {
+        return get(allTasksAtom);
+    },
+    set: ({ get, set }, newValue: any) => {
+        const targetId: number = newValue.id;
+        const targetIsCompleted: boolean = newValue.isCompleted;
+
+        const newTasksArray: allTasksAtomType = get(allTasksAtom).map((task: any) => {
+            if (task.id === targetId) {
+                return {...task, isCompleted: !targetIsCompleted}
+            } else {
+                return task;
+            }
+        });
+
+        set(allTasksAtom, newTasksArray);
+    }
+});
 
 export {
     allTasksAtom,
@@ -113,5 +135,6 @@ export {
     addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
-    deleteTaskSelector
+    deleteTaskSelector,
+    changeTaskIsCompleted
 }
