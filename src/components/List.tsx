@@ -1,5 +1,5 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { allTasksAtom, editTargetTaskAtom, allTasksAtomType, changeTaskEditableSelector, deleteTaskSelector, changeTaskIsCompleted} from '../recoil/recoilState';
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { allTasksAtom, allTasksAtomType, changeTaskEditableSelector, deleteTaskSelector, changeTaskIsCompleted} from '../recoil/recoilState';
 import EditForm from "./EditForm";
 
 const List = () => {
