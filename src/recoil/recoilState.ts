@@ -1,20 +1,22 @@
 import { atom, selector } from "recoil";
 
-export type allTasksAtomType = {
+export type TaskAtomType = {
     id: number;
     title: string;
     edit: boolean;
     isCompleted: boolean;
-}[];
+};
+
+export type AllTasksAtomType = TaskAtomType[]
 
 // 全タスクAtom
-const allTasksAtom = atom<allTasksAtomType>({
+const allTasksAtom = atom<AllTasksAtomType>({
     key: 'allTasksAtom',
     default: []
 });
 
 // タスク追加のSelector
-const addTaskSelector = selector<any>({
+const addTaskSelector = selector<AllTasksAtomType>({
     key: 'addTaskSelector',
     get: ({ get }) => {
         return get(allTasksAtom);
@@ -36,7 +38,7 @@ const addTaskSelector = selector<any>({
 });
 
 // タスク編集を可能にするSelector
-const changeTaskEditableSelector = selector({
+const changeTaskEditableSelector = selector<AllTasksAtomType>({
     key: 'changeTaskEditableSelector',
     get: ({ get }) => {
         return get(allTasksAtom);
@@ -44,7 +46,7 @@ const changeTaskEditableSelector = selector({
     set: ({ get, set }, newValue: any) => {
         const targetId = newValue.id;
 
-        const changedTargetEditableArray: allTasksAtomType = get(allTasksAtom).map((task: any) => {
+        const changedTargetEditableArray: AllTasksAtomType = get(allTasksAtom).map((task: TaskAtomType) => {
             if (task.id === targetId) {
                 return {...task, edit: true}
             } else {
@@ -57,7 +59,7 @@ const changeTaskEditableSelector = selector({
 });
 
 // タスク編集のSelector
-const editTaskSelector = selector({
+const editTaskSelector = selector<AllTasksAtomType>({
     key: 'editTaskSelector',
     get: ({ get }) => {
         return get(allTasksAtom);
@@ -66,7 +68,7 @@ const editTaskSelector = selector({
         const targetId: number = newValue.id;
         const newTitle: string = newValue.title;
 
-        const newTasksArray: allTasksAtomType = get(allTasksAtom).map((task: any) => {
+        const newTasksArray: AllTasksAtomType = get(allTasksAtom).map((task: TaskAtomType) => {
             if (task.id === targetId) {
                 return {...task, title: newTitle, edit: false}
             } else {
@@ -79,7 +81,7 @@ const editTaskSelector = selector({
 });
 
 // タスク削除のSelector
-const deleteTaskSelector = selector({
+const deleteTaskSelector = selector<AllTasksAtomType>({
     key: 'deleteTaskSelector',
     get: ({ get }) => {
         return get(allTasksAtom);
@@ -87,7 +89,7 @@ const deleteTaskSelector = selector({
     set: ({ get, set }, newValue: any) => {
         const targetId = newValue.id;
 
-        const deletedArray: allTasksAtomType = get(allTasksAtom).filter((task: any) => {
+        const deletedArray: AllTasksAtomType = get(allTasksAtom).filter((task: TaskAtomType) => {
             return task.id !== targetId;
         });
 
@@ -96,7 +98,7 @@ const deleteTaskSelector = selector({
 });
 
 // タスクの完了状態を切り替えるSelector
-const changeTaskIsCompletedSelector = selector({
+const changeTaskIsCompletedSelector = selector<AllTasksAtomType>({
     key: 'changeTaskIsCompletedSelector',
     get: ({ get }) => {
         return get(allTasksAtom);
@@ -105,7 +107,7 @@ const changeTaskIsCompletedSelector = selector({
         const targetId: number = newValue.id;
         const targetIsCompleted: boolean = newValue.isCompleted;
 
-        const newTasksArray: allTasksAtomType = get(allTasksAtom).map((task: any) => {
+        const newTasksArray: AllTasksAtomType = get(allTasksAtom).map((task: TaskAtomType) => {
             if (task.id === targetId) {
                 return {...task, isCompleted: !targetIsCompleted}
             } else {
@@ -118,10 +120,10 @@ const changeTaskIsCompletedSelector = selector({
 });
 
 // 完了したタスクを取得するSelector
-const showTaskCompletedSelector = selector({
+const showTaskCompletedSelector = selector<AllTasksAtomType>({
     key: 'switchTaskCompletedSelector',
     get: ({ get }) => {
-        const targetTasks: allTasksAtomType = get(allTasksAtom).filter((task: any) => {
+        const targetTasks: AllTasksAtomType = get(allTasksAtom).filter((task: TaskAtomType) => {
             return task.isCompleted === true;
         });
 
@@ -130,10 +132,10 @@ const showTaskCompletedSelector = selector({
 });
 
 // 未完了のタスクを取得するSelector
-const showTaskNotCompletedSelector = selector({
+const showTaskNotCompletedSelector = selector<AllTasksAtomType>({
     key: 'showTaskNotCompletedSelector',
     get: ({ get }) => {
-        const targetTasks: allTasksAtomType = get(allTasksAtom).filter((task: any) => {
+        const targetTasks: AllTasksAtomType = get(allTasksAtom).filter((task: TaskAtomType) => {
             return task.isCompleted === false;
         });
 
