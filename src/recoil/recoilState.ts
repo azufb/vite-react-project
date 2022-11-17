@@ -115,11 +115,24 @@ const changeTaskIsCompleted = selector({
     }
 });
 
+// 完了したタスクを取得するSelector
+const showTaskCompletedSelector = selector({
+    key: 'switchTaskCompletedSelector',
+    get: ({ get }) => {
+        const targetTasks = get(allTasksAtom).filter((task: any) => {
+            return task.isCompleted === true;
+        });
+
+        return targetTasks;
+    }
+});
+
 export {
     allTasksAtom,
     addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
     deleteTaskSelector,
-    changeTaskIsCompleted
+    changeTaskIsCompleted,
+    showTaskCompletedSelector
 }
