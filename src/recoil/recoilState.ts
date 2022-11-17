@@ -115,11 +115,37 @@ const changeTaskIsCompleted = selector({
     }
 });
 
+// 完了したタスクを取得するSelector
+const showTaskCompletedSelector = selector({
+    key: 'switchTaskCompletedSelector',
+    get: ({ get }) => {
+        const targetTasks: allTasksAtomType = get(allTasksAtom).filter((task: any) => {
+            return task.isCompleted === true;
+        });
+
+        return targetTasks;
+    }
+});
+
+// 未完了のタスクを取得するSelector
+const showTaskNotCompletedSelector = selector({
+    key: 'showTaskNotCompletedSelector',
+    get: ({ get }) => {
+        const targetTasks: allTasksAtomType = get(allTasksAtom).filter((task: any) => {
+            return task.isCompleted === false;
+        });
+
+        return targetTasks;
+    }
+});
+
 export {
     allTasksAtom,
     addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
     deleteTaskSelector,
-    changeTaskIsCompleted
+    changeTaskIsCompleted,
+    showTaskCompletedSelector,
+    showTaskNotCompletedSelector
 }
