@@ -7,24 +7,10 @@ export type allTasksAtomType = {
     isCompleted: boolean;
 }[];
 
-export type editTargetTaskAtomType = {
-    id: number | undefined;
-    title: string;
-};
-
 // 全タスクAtom
 const allTasksAtom = atom<allTasksAtomType>({
     key: 'allTasksAtom',
     default: []
-});
-
-// 編集対象タスクAtom
-const editTargetTaskAtom = atom<editTargetTaskAtomType>({
-    key: 'editTargetTaskAtom',
-    default: {
-        id: undefined,
-        title: ''
-    }
 });
 
 // タスク追加のSelector
@@ -131,7 +117,6 @@ const changeTaskIsCompleted = selector({
 
 export {
     allTasksAtom,
-    editTargetTaskAtom,
     addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
