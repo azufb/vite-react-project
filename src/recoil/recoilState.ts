@@ -4,6 +4,7 @@ export type allTasksAtomType = {
     id: number;
     title: string;
     edit: boolean;
+    isCompleted: boolean;
 }[];
 
 export type editTargetTaskAtomType = {
@@ -38,7 +39,8 @@ const addTaskSelector = selector<any>({
         const addTaskParam = {
             id: newId,
             title: newValue,
-            edit: false
+            edit: false,
+            isCompleted: false
         };
 
         set(allTasksAtom, [...get(allTasksAtom), addTaskParam]);
