@@ -22,7 +22,9 @@ const List = () => {
                     />
                     ) : (
                         <>
+                            <span>NO.{task.id}：</span>
                             <span>{task.title}</span>
+                            <span>{task.isCompleted ? 'DONE' : 'TODO'}</span>
                             <button onClick={() => changeEditable(task)}>Edit</button>
                             <button onClick={() => setDeleteTask(task)}>削除</button>
                         </>
