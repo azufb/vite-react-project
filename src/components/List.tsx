@@ -8,10 +8,6 @@ const List = () => {
     const setChangeTaskEditable = useSetRecoilState(changeTaskEditableSelector);
     const setChangeTaskIsCompleted = useSetRecoilState(changeTaskIsCompletedSelector);
 
-    const changeEditable = (targetTask: any): void => {
-        setChangeTaskEditable(targetTask.id);
-    }
-
     return (
         <div>
             {allTasks.map((task: any, index: number) => (
@@ -26,7 +22,7 @@ const List = () => {
                             <span>NO.{task.id}：</span>
                             <span>{task.title}</span>
                             <button onClick={() => setChangeTaskIsCompleted(task)}>{task.isCompleted ? 'DONE' : 'TODO'}</button>
-                            <button onClick={() => changeEditable(task)}>Edit</button>
+                            <button onClick={() => setChangeTaskEditable(task)}>Edit</button>
                             <button onClick={() => setDeleteTask(task)}>削除</button>
                         </>
                     )}
