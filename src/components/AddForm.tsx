@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import { addTaskSelector } from '../recoil/recoilState';
+import { addTaskSelector, AllTasksAtomType } from '../recoil/recoilState';
 
 const AddForm = () => {
     const { register, handleSubmit, reset } = useForm();
-    const setAddTask = useSetRecoilState(addTaskSelector);
+    const setAddTask = useSetRecoilState<AllTasksAtomType>(addTaskSelector);
 
     const addTask = (data: any) => {
         setAddTask(data);
