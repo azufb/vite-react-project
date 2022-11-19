@@ -3,6 +3,7 @@ import AddForm from './components/AddForm';
 import List from './components/List';
 import NotCompletedList from './components/NotCompletedList';
 import CompletedList from './components/CompletedList';
+import Stats from './components/Stats';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <List />
       <NotCompletedList />
       <CompletedList />
+      <Stats />
     </div>
   );
 };
