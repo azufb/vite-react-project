@@ -7,7 +7,7 @@ export type TaskAtomType = {
     isCompleted: boolean;
 };
 
-export type AllTasksAtomType = TaskAtomType[]
+export type AllTasksAtomType = TaskAtomType[];
 
 // 全タスクAtom
 const allTasksAtom = atom<AllTasksAtomType>({
@@ -143,13 +143,46 @@ const showTaskNotCompletedSelector = selector<AllTasksAtomType>({
     }
 });
 
+// タスク状況を示す値を算出するSelector
+const changeTasksStatsSelector = selector({
+    key: 'changeTasksStatsSelector',
+    get: ({ get }) => {
+        const allTasks = get(allTasksAtom);
+
+        const allTasksCount: number = allTasks.length;
+        const completedTasks: AllTasksAtomType = allTasks.filter((task: TaskAtomType) => {
+            return task.isCompleted === true;
+        });
+        const completedTasksCount: number = completedTasks.length;
+
+        const notCompletedTasks: AllTasksAtomType = allTasks.filter((task: TaskAtomType) => {
+            return task.isCompleted === false;
+        });
+        const notCompletedTasksCount: number = notCompletedTasks.length;
+
+        let completedTasksPercentage: number =  0;
+        if (allTasksCount !== 0) {
+            completedTasksPercentage = (completedTasksCount / allTasksCount) * 100;
+        };
+
+        return {
+            allTasksCount,
+            completedTasksCount,
+            notCompletedTasksCount,
+            completedTasksPercentage
+        };
+    }
+});
+
 export {
     allTasksAtom,
+    tasksStatsAtom,
     addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
     deleteTaskSelector,
     changeTaskIsCompletedSelector,
     showTaskCompletedSelector,
-    showTaskNotCompletedSelector
+    showTaskNotCompletedSelector,
+    changeTasksStatsSelector
 }

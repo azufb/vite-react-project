@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { changeTasksStatsSelector, tasksStatsAtom, TasksStatsAtomType } from "../recoil/recoilState";
+import { changeTasksStatsSelector } from "../recoil/recoilState";
 
 const Stats = () => {
     const tasksStats = useRecoilValue(changeTasksStatsSelector);
