@@ -7,12 +7,30 @@ export type TaskAtomType = {
     isCompleted: boolean;
 };
 
-export type AllTasksAtomType = TaskAtomType[]
+export type AllTasksAtomType = TaskAtomType[];
+
+export type TasksStatsAtomType = {
+    allCount: number,
+    completed: number,
+    notCompleted: number,
+    completedPercentage: number
+};
 
 // 全タスクAtom
 const allTasksAtom = atom<AllTasksAtomType>({
     key: 'allTasksAtom',
     default: []
+});
+
+// Stats用Atom
+const tasksStatsAtom = atom<TasksStatsAtomType>({
+    key: 'tasksStatsAtom',
+    default: {
+        allCount: 0,
+        completed: 0,
+        notCompleted: 0,
+        completedPercentage: 0
+    }
 });
 
 // タスク追加のSelector
@@ -145,6 +163,7 @@ const showTaskNotCompletedSelector = selector<AllTasksAtomType>({
 
 export {
     allTasksAtom,
+    tasksStatsAtom,
     addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
