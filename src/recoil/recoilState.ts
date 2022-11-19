@@ -40,18 +40,34 @@ const addTaskSelector = selector<AllTasksAtomType>({
         return get(allTasksAtom);
     },
     set: ({ set, get }, newValue: any) => {
-        const arrayLength = get(allTasksAtom).length;
-        const newId = arrayLength === 0 ? 1 : arrayLength + 1;
-        const newTitle = newValue.title;
+        const arrayLength: number = get(allTasksAtom).length;
+        let addTaskParamsArray: any[] = [];
 
-        const addTaskParam = {
-            id: newId,
-            title: newTitle,
-            edit: false,
-            isCompleted: false
-        };
+        newValue.tasks.forEach((value: any, index: number) => {
+            const valueIndex: number = index === 0 ? 1 : index + 1;
+            let newId: number = 0;
 
-        set(allTasksAtom, [...get(allTasksAtom), addTaskParam]);
+            if (value.title !== '') {
+                if (arrayLength === 0 && index === 0) {
+                    newId = 1;
+                } else {
+                    newId = arrayLength + valueIndex;
+                }
+    
+                const addTaskParam = {
+                    id: newId,
+                    title: value.title,
+                    edit: false,
+                    isCompleted: false
+                };
+    
+                return addTaskParamsArray = [...addTaskParamsArray, addTaskParam];
+            } else {
+                return addTaskParamsArray;
+            }
+        });
+
+        set(allTasksAtom, get(allTasksAtom).concat(addTaskParamsArray));
     }
 });
 
