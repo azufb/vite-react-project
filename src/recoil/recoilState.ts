@@ -9,10 +9,28 @@ export type TaskAtomType = {
 
 export type AllTasksAtomType = TaskAtomType[];
 
+export type TasksStatsAtomType = {
+    allCount: number,
+    completed: number,
+    notCompleted: number,
+    completedPercentage: number
+};
+
 // 全タスクAtom
 const allTasksAtom = atom<AllTasksAtomType>({
     key: 'allTasksAtom',
     default: []
+});
+
+// Stats用Atom
+const tasksStatsAtom = atom<TasksStatsAtomType>({
+    key: 'tasksStatsAtom',
+    default: {
+        allCount: 0,
+        completed: 0,
+        notCompleted: 0,
+        completedPercentage: 0
+    }
 });
 
 // タスク追加のSelector
@@ -143,45 +161,14 @@ const showTaskNotCompletedSelector = selector<AllTasksAtomType>({
     }
 });
 
-// タスク状況を示す値を算出するSelector
-const changeTasksStatsSelector = selector({
-    key: 'changeTasksStatsSelector',
-    get: ({ get }) => {
-        const allTasks = get(allTasksAtom);
-
-        const allTasksCount: number = allTasks.length;
-        const completedTasks: AllTasksAtomType = allTasks.filter((task: TaskAtomType) => {
-            return task.isCompleted === true;
-        });
-        const completedTasksCount: number = completedTasks.length;
-
-        const notCompletedTasks: AllTasksAtomType = allTasks.filter((task: TaskAtomType) => {
-            return task.isCompleted === false;
-        });
-        const notCompletedTasksCount: number = notCompletedTasks.length;
-
-        let completedTasksPercentage: number =  0;
-        if (allTasksCount !== 0) {
-            completedTasksPercentage = (completedTasksCount / allTasksCount) * 100;
-        };
-
-        return {
-            allTasksCount,
-            completedTasksCount,
-            notCompletedTasksCount,
-            completedTasksPercentage
-        };
-    }
-});
-
 export {
     allTasksAtom,
+    tasksStatsAtom,
     addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
     deleteTaskSelector,
     changeTaskIsCompletedSelector,
     showTaskCompletedSelector,
-    showTaskNotCompletedSelector,
-    changeTasksStatsSelector
+    showTaskNotCompletedSelector
 }
