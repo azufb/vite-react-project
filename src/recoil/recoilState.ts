@@ -176,7 +176,6 @@ const changeTasksStatsSelector = selector({
 
 export {
     allTasksAtom,
-    tasksStatsAtom,
     addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
