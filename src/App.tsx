@@ -3,17 +3,20 @@ import List from './components/List';
 import NotCompletedList from './components/NotCompletedList';
 import CompletedList from './components/CompletedList';
 import Stats from './components/Stats';
+import { RecoilRoot } from 'recoil';
 
 const App = () => {
   return (
-    <div>
-      <h1>Todo List</h1>
-      <AddForm />
-      <List />
-      <NotCompletedList />
-      <CompletedList />
-      <Stats />
-    </div>
+    <RecoilRoot>
+      <div>
+        <h1>Todo List</h1>
+        <AddForm />
+        <List />
+        <NotCompletedList />
+        <CompletedList />
+        <Stats />
+      </div>
+    </RecoilRoot>
   );
 };
 
