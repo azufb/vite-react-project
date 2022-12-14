@@ -2,6 +2,14 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import { addTaskSelector, AllTasksAtomType } from '../recoil/recoilState';
 
+type AddTaskType = {
+    title: string;
+};
+
+type AddTasksDataType = {
+    tasks: AddTaskType[];
+};
+
 const AddForm = () => {
     const { register, control, handleSubmit, reset } = useForm({
         defaultValues: {
@@ -14,13 +22,14 @@ const AddForm = () => {
         control,
         name: 'tasks'
     })
-    const setAddTask = useSetRecoilState<AllTasksAtomType>(addTaskSelector);
+    const setAddTask = useSetRecoilState<any>(addTaskSelector);
 
-    const addTask = (data: any) => {
+    const addTask = (data: AddTasksDataType) => {
+        console.log(data);
         setAddTask(data);
 
         reset(); // フォームを空にする
-        remove(1); // 追加したフォームを消去
+        remove(1);
     }
 
     return (
