@@ -1,5 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { TaskAtomType, AllTasksAtomType, changeTaskIsCompletedSelector, deleteTaskSelector, showTaskCompletedSelector } from "../recoil/recoilState";
+import { changeTaskIsCompletedSelector, deleteTaskSelector, showTaskCompletedSelector } from "../recoil/recoilState";
+import { AllTasksAtomType, TaskAtomType } from "../types/recoilStateType";
 
 const CompletedList = () => {
     const completedTasks = useRecoilValue<AllTasksAtomType>(showTaskCompletedSelector);

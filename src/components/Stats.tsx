@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { allTasksAtom, AllTasksAtomType, TaskAtomType, tasksStatsAtom, TasksStatsAtomType } from "../recoil/recoilState";
+import { allTasksAtom, tasksStatsAtom } from "../recoil/recoilState";
+import { AllTasksAtomType, TaskAtomType, TasksStatsAtomType } from "../types/recoilStateType";
 
 const Stats = () => {
     const [stats, setStats] = useRecoilState<TasksStatsAtomType>(tasksStatsAtom);
