@@ -16,6 +16,10 @@ export type TasksStatsAtomType = {
     completedPercentage: number
 };
 
+type AddTaskType = {
+    title: string;
+};
+
 // 全タスクAtom
 const allTasksAtom = atom<AllTasksAtomType>({
     key: 'allTasksAtom',
@@ -41,9 +45,9 @@ const addTaskSelector = selector<AllTasksAtomType>({
     },
     set: ({ set, get }, newValue: any) => {
         const arrayLength: number = get(allTasksAtom).length;
-        let addTaskParamsArray: any[] = [];
+        let addTaskParamsArray: AllTasksAtomType = [];
 
-        newValue.tasks.forEach((value: any, index: number) => {
+        newValue.tasks.forEach((value: AddTaskType, index: number) => {
             const valueIndex: number = index === 0 ? 1 : index + 1;
             let newId: number = 0;
 
@@ -54,7 +58,7 @@ const addTaskSelector = selector<AllTasksAtomType>({
                     newId = arrayLength + valueIndex;
                 }
     
-                const addTaskParam = {
+                const addTaskParam: TaskAtomType = {
                     id: newId,
                     title: value.title,
                     edit: false,
@@ -78,7 +82,7 @@ const changeTaskEditableSelector = selector<AllTasksAtomType>({
         return get(allTasksAtom);
     },
     set: ({ get, set }, newValue: any) => {
-        const targetId = newValue.id;
+        const targetId: number = newValue.id;
 
         const changedTargetEditableArray: AllTasksAtomType = get(allTasksAtom).map((task: TaskAtomType) => {
             if (task.id === targetId) {
@@ -121,7 +125,7 @@ const deleteTaskSelector = selector<AllTasksAtomType>({
         return get(allTasksAtom);
     },
     set: ({ get, set }, newValue: any) => {
-        const targetId = newValue.id;
+        const targetId: number = newValue.id;
 
         const deletedArray: AllTasksAtomType = get(allTasksAtom).filter((task: TaskAtomType) => {
             return task.id !== targetId;
