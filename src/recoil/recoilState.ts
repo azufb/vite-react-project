@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { AddTaskType } from "../types/addTasksType";
 
 export type TaskAtomType = {
     id: number;
@@ -14,10 +15,6 @@ export type TasksStatsAtomType = {
     completed: number,
     notCompleted: number,
     completedPercentage: number
-};
-
-type AddTaskType = {
-    title: string;
 };
 
 // 全タスクAtom
