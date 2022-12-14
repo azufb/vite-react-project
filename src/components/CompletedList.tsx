@@ -1,15 +1,15 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { AllTasksAtomType, changeTaskIsCompletedSelector, deleteTaskSelector, showTaskCompletedSelector } from "../recoil/recoilState";
+import { TaskAtomType, AllTasksAtomType, changeTaskIsCompletedSelector, deleteTaskSelector, showTaskCompletedSelector } from "../recoil/recoilState";
 
 const CompletedList = () => {
     const completedTasks = useRecoilValue<AllTasksAtomType>(showTaskCompletedSelector);
-    const setChangeTaskIsCompleted = useSetRecoilState<AllTasksAtomType>(changeTaskIsCompletedSelector);
-    const setDeleteTask = useSetRecoilState<AllTasksAtomType>(deleteTaskSelector);
+    const setChangeTaskIsCompleted = useSetRecoilState<any>(changeTaskIsCompletedSelector);
+    const setDeleteTask = useSetRecoilState<any>(deleteTaskSelector);
 
     return (
         <div>
             <h1>完了したタスク：</h1>
-            {completedTasks.map((task: any, index: number) => (
+            {completedTasks.map((task: TaskAtomType, index: number) => (
                 <div key={index}>
                     <span>NO.{task.id}：</span>
                     <span>{task.title}</span>
