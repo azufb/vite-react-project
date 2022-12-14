@@ -24,7 +24,7 @@ const AddForm = () => {
     })
     const setAddTask = useSetRecoilState<any>(addTaskSelector);
 
-    const addTask = (data: AddTasksDataType) => {
+    const addTask = (data: AddTasksDataType): void => {
         console.log(data);
         setAddTask(data);
 

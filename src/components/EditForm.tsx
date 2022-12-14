@@ -15,7 +15,7 @@ const EditForm = (props: any) => {
     });
     const setEditTask = useSetRecoilState<any>(editTaskSelector);
 
-    const updateTask = (data: AddTaskType) => {
+    const updateTask = (data: AddTaskType): void => {
         setEditTask(data);
     }
 
