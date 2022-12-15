@@ -1,16 +1,17 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { allTasksAtom, AllTasksAtomType, changeTaskEditableSelector, deleteTaskSelector, changeTaskIsCompletedSelector} from '../recoil/recoilState';
+import { allTasksAtom, changeTaskEditableSelector, deleteTaskSelector, changeTaskIsCompletedSelector} from '../recoil/recoilState';
+import { AllTasksAtomType, TaskAtomType } from "../types/recoilStateType";
 import EditForm from "./EditForm";
 
 const List = () => {
     const allTasks = useRecoilValue<AllTasksAtomType>(allTasksAtom);
-    const setDeleteTask = useSetRecoilState<AllTasksAtomType>(deleteTaskSelector);
-    const setChangeTaskEditable = useSetRecoilState<AllTasksAtomType>(changeTaskEditableSelector);
-    const setChangeTaskIsCompleted = useSetRecoilState<AllTasksAtomType>(changeTaskIsCompletedSelector);
+    const setDeleteTask = useSetRecoilState<any>(deleteTaskSelector);
+    const setChangeTaskEditable = useSetRecoilState<any>(changeTaskEditableSelector);
+    const setChangeTaskIsCompleted = useSetRecoilState<any>(changeTaskIsCompletedSelector);
 
     return (
         <div>
-            {allTasks.map((task: any, index: number) => (
+            {allTasks.map((task: TaskAtomType, index: number) => (
                 <div key={index}>
                     {task.edit ? (
                         <EditForm

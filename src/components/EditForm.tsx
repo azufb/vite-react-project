@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import { AllTasksAtomType, editTaskSelector } from "../recoil/recoilState";
+import { editTaskSelector } from "../recoil/recoilState";
+import { AddTaskType } from "../types/addTasksType";
 
 const EditForm = (props: any) => {
     const { register, handleSubmit } = useForm({
@@ -9,9 +10,9 @@ const EditForm = (props: any) => {
             title: props.title
         }
     });
-    const setEditTask = useSetRecoilState<AllTasksAtomType>(editTaskSelector);
+    const setEditTask = useSetRecoilState<any>(editTaskSelector);
 
-    const updateTask = (data: any) => {
+    const updateTask = (data: AddTaskType): void => {
         setEditTask(data);
     }
 
