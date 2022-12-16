@@ -1,40 +1,58 @@
-import { useForm, useFieldArray } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
-import { addTaskSelector } from '../recoil/recoilState';
-import { AddTasksDataType } from "../types/addTasksType";
+import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
+import { allTasksAtom } from '../recoil/recoilState';
+import { AddTaskType } from "../types/addTasksType";
+import { AllTasksAtomType, TaskAtomType } from "../types/recoilStateType";
 
 const AddForm = () => {
-    const { register, control, handleSubmit, reset } = useForm({
+    const { register, handleSubmit, reset } = useForm({
         defaultValues: {
-            tasks: [
-                {title: ''}
-            ]
+            title: ''
         }
     });
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: 'tasks'
-    })
-    const setAddTask = useSetRecoilState<any>(addTaskSelector);
 
-    const addTask = (data: AddTasksDataType): void => {
-        console.log(data);
-        setAddTask(data);
+    const [currentAllTasks, setNewAllTasks] = useRecoilState<AllTasksAtomType>(allTasksAtom);
+
+    // 新規追加のタスクのidを設定
+    const assignTaskId = (): number => {
+        let id: number | undefined = undefined;
+        const currentAllTasksLength: number = currentAllTasks.length;
+
+        if (currentAllTasksLength === 0) {
+            // 1つ目のタスクの場合は、idは1を付与
+            id = 1;
+        } else {
+            // 2つ目以降のタスクの場合は、idは配列の要素の数+1の値を付与
+            id = currentAllTasksLength + 1;
+        }
+
+        return id;
+    };
+
+    // タスクを追加
+    const addTask = (data: AddTaskType): void => {
+        const taskId: number = assignTaskId();
+        const newTask: TaskAtomType = {
+            id: taskId,
+            title: data.title,
+            edit: false,
+            isCompleted: false
+        };
+
+        // 新しくタスクを追加した配列を作成
+        const newTasksArray = [...currentAllTasks, newTask ];
+
+        // 新しいタスクの配列で、atomを更新
+        setNewAllTasks(newTasksArray);
 
         reset(); // フォームを空にする
-        remove(1);
     }
 
     return (
-        <form onSubmit={handleSubmit(addTask)}>
-            {fields.map((item: any, index: number) => (
-                <div key={item.id}>
-                    <label htmlFor="title">タスク：</label>
-                    <input id="title" {...register(`tasks.${index}.title`)} />
-                </div>
-            ))}
-            <button type="button" onClick={() => append({ title: '' })}>追加</button>
-            <button type='submit'>ADD</button>
+        <form>
+            <label>タスク：</label>
+            <input {...register('title')} />
+            <button type='submit' onClick={handleSubmit(addTask)}>ADD</button>
         </form>
     );
 };
