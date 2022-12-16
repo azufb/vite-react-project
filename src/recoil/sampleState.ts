@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 const sampleAtom = atom<string[]>({
     key: 'sampleAtom',
@@ -9,6 +9,14 @@ const sampleAtom = atom<string[]>({
     ]
 });
 
+const sampleSelector = selector<string[]>({
+    key: 'sampleSelector',
+    get: ({ get }) => {
+        return get(sampleAtom);
+    }
+});
+
 export {
-    sampleAtom 
+    sampleAtom,
+    sampleSelector
 };
