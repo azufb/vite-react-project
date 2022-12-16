@@ -9,15 +9,15 @@ import Sample from './components/Sample';
 const App = () => {
   return (
     <RecoilRoot>
-      <Sample />
-      {/*<div>
+      {/*<Sample />*/}
+      <div>
         <h1>Todo List</h1>
         <AddForm />
         <List />
         <NotCompletedList />
         <CompletedList />
         <Stats />
-      </div>*/}
+      </div>
     </RecoilRoot>
   );
 };
