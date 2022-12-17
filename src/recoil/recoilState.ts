@@ -19,44 +19,6 @@ const tasksStatsAtom = atom<TasksStatsAtomType>({
     }
 });
 
-// タスク追加のSelector
-const addTaskSelector = selector<AllTasksAtomType>({
-    key: 'addTaskSelector',
-    get: ({ get }) => {
-        return get(allTasksAtom);
-    },
-    set: ({ set, get }, newValue: any) => {
-        const arrayLength: number = get(allTasksAtom).length;
-        let addTaskParamsArray: AllTasksAtomType = [];
-
-        newValue.tasks.forEach((value: AddTaskType, index: number) => {
-            const valueIndex: number = index === 0 ? 1 : index + 1;
-            let newId: number = 0;
-
-            if (value.title !== '') {
-                if (arrayLength === 0 && index === 0) {
-                    newId = 1;
-                } else {
-                    newId = arrayLength + valueIndex;
-                }
-    
-                const addTaskParam: TaskAtomType = {
-                    id: newId,
-                    title: value.title,
-                    edit: false,
-                    isCompleted: false
-                };
-    
-                return addTaskParamsArray = [...addTaskParamsArray, addTaskParam];
-            } else {
-                return addTaskParamsArray;
-            }
-        });
-
-        set(allTasksAtom, get(allTasksAtom).concat(addTaskParamsArray));
-    }
-});
-
 // タスク編集を可能にするSelector
 const changeTaskEditableSelector = selector<AllTasksAtomType>({
     key: 'changeTaskEditableSelector',
@@ -166,7 +128,6 @@ const showTaskNotCompletedSelector = selector<AllTasksAtomType>({
 export {
     allTasksAtom,
     tasksStatsAtom,
-    addTaskSelector,
     changeTaskEditableSelector,
     editTaskSelector,
     deleteTaskSelector,
