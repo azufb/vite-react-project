@@ -1,23 +1,24 @@
 import AddForm from './components/AddForm';
-import List from './components/List';
 import NotCompletedList from './components/NotCompletedList';
 import CompletedList from './components/CompletedList';
 import Stats from './components/Stats';
 import { RecoilRoot } from 'recoil';
 import Sample from './components/Sample';
+import { contentsArea, title, tasksDisplayArea } from './styles/app';
 
 const App = () => {
   return (
     <RecoilRoot>
-      <Sample />
-      {/*<div>
-        <h1>Todo List</h1>
+      {/*<Sample />*/}
+      <div css={contentsArea}>
+        <h1 css={title}>ToDoリスト</h1>
         <AddForm />
-        <List />
-        <NotCompletedList />
-        <CompletedList />
-        <Stats />
-      </div>*/}
+        <div css={tasksDisplayArea}>
+          <NotCompletedList />
+          <CompletedList />
+        </div>
+        {/*<Stats />*/}
+      </div>
     </RecoilRoot>
   );
 };
