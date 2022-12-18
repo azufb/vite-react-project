@@ -13,10 +13,10 @@ const App = () => {
       <div>
         <h1>Todo List</h1>
         <AddForm />
-        <List />
+        {/*<List />*/}
         <NotCompletedList />
         <CompletedList />
-        <Stats />
+        {/*<Stats />*/}
       </div>
     </RecoilRoot>
   );
