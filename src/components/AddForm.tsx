@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
-import { allTasksAtom } from '../recoil/recoilState';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { allTasksAtom, taskAddSelector } from '../recoil/recoilState';
 import { AddTaskType } from "../types/addTasksType";
 import { AllTasksAtomType, TaskAtomType } from "../types/recoilStateType";
 import { formContent, registerButton } from "../styles/addForm";
@@ -12,10 +12,12 @@ const AddForm = () => {
         }
     });
 
-    const [currentAllTasks, setNewAllTasks] = useRecoilState<AllTasksAtomType>(allTasksAtom);
+    //const [currentAllTasks, setNewAllTasks] = useRecoilState<AllTasksAtomType>(allTasksAtom);
+    const setNewAllTasks = useSetRecoilState<any>(taskAddSelector);
+
 
     // 新規追加のタスクのidを設定
-    const assignTaskId = (): number => {
+    /*const assignTaskId = (): number => {
         let id: number | undefined = undefined;
         const currentAllTasksLength: number = currentAllTasks.length;
 
@@ -28,11 +30,11 @@ const AddForm = () => {
         }
 
         return id;
-    };
+    };*/
 
     // タスクを追加
     const addTask = (data: AddTaskType): void => {
-        const taskId: number = assignTaskId();
+        /*const taskId: number = assignTaskId();
         const newTask: TaskAtomType = {
             id: taskId,
             title: data.title,
@@ -44,7 +46,10 @@ const AddForm = () => {
         const newTasksArray = [...currentAllTasks, newTask ];
 
         // 新しいタスクの配列で、atomを更新
-        setNewAllTasks(newTasksArray);
+        setNewAllTasks(newTasksArray);*/
+
+        const taskTitle: string = data.title;
+        setNewAllTasks(taskTitle);
 
         reset(); // フォームを空にする
     }

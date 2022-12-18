@@ -5,6 +5,7 @@ import Stats from './components/Stats';
 import { RecoilRoot } from 'recoil';
 import Sample from './components/Sample';
 import { contentsArea, title, tasksDisplayArea } from './styles/app';
+import List from './components/List';
 
 const App = () => {
   return (
@@ -14,8 +15,9 @@ const App = () => {
         <h1 css={title}>ToDoリスト</h1>
         <AddForm />
         <div css={tasksDisplayArea}>
-          <NotCompletedList />
-          <CompletedList />
+          <List />
+          {/*<NotCompletedList />
+          <CompletedList />*/}
         </div>
         {/*<Stats />*/}
       </div>
