@@ -18,6 +18,7 @@ const itemsArea = css`
 
 const item = css`
     padding-bottom: 1rem;
+    color: #2F2F2F;
     & > p {
         margin: 0;
     }
