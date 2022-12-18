@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { allTasksAtom } from '../recoil/recoilState';
 import { AddTaskType } from "../types/addTasksType";
 import { AllTasksAtomType, TaskAtomType } from "../types/recoilStateType";
-import { registerButton } from "../styles/addForm";
+import { formContent, registerButton } from "../styles/addForm";
 
 const AddForm = () => {
     const { register, handleSubmit, reset } = useForm({
@@ -50,11 +50,12 @@ const AddForm = () => {
     }
 
     return (
-        <form>
-            <label htmlFor='taskInputForm'>タスク：</label>
-            <input id='taskInputForm' {...register('title')} placeholder='ここにタスク名を入力' />
-            <button type='submit' onClick={handleSubmit(addTask)} css={registerButton}>登録</button>
-        </form>
+        <div>
+            <form css={formContent}>
+                <input {...register('title')} placeholder='ここにタスク名を入力' />
+                <button type='submit' onClick={handleSubmit(addTask)} css={registerButton}>登録</button>
+            </form>
+        </div>
     );
 };
 
