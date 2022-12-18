@@ -23,9 +23,25 @@ const item = css`
     }
 `;
 
+const backToDoButton = css`
+    width: 20%;
+    padding: 0.25rem 1rem;
+    margin-right: 0.5rem;
+    border-radius: 12px;
+`;
+
+const deleteButton = css`
+    width: 20%;
+    padding: 0.25rem 1rem;
+    border-radius: 12px;
+    color: red;
+`;
+
 export {
     listArea,
     title,
     itemsArea,
-    item
+    item,
+    backToDoButton,
+    deleteButton
 };

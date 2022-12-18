@@ -1,7 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { changeTaskIsCompletedSelector, deleteTaskSelector, showTaskNotCompletedSelector } from "../recoil/recoilState";
 import { AllTasksAtomType, TaskAtomType } from "../types/recoilStateType";
-import { listArea, title, itemsArea, item } from "../styles/notCompletedList";
+import { listArea, title, itemsArea, item, toDoneButton, deleteButton } from "../styles/notCompletedList";
 
 const NotCompletedList = () => {
     const notCompletedTasks = useRecoilValue<AllTasksAtomType>(showTaskNotCompletedSelector);
@@ -19,8 +19,8 @@ const NotCompletedList = () => {
                             <span>NO.{task.id}：</span>
                             <span>{task.title}</span>
                         </p>
-                        <button onClick={() => setChangeTaskIsCompleted(task)}>完了する</button>
-                        <button onClick={() => setDeleteTask(task)}>削除する</button>
+                        <button onClick={() => setChangeTaskIsCompleted(task)} css={toDoneButton}>完了</button>
+                        <button onClick={() => setDeleteTask(task)} css={deleteButton}>削除</button>
                     </div>
                 ))}
             </div>

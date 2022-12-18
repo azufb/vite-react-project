@@ -17,7 +17,7 @@ const tasksDisplayArea = css`
     height: 70%;
     display: flex;
 `;
-//column-gap: 1.5rem;
+
 export {
     contentsArea,
     title,
