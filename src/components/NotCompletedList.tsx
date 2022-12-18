@@ -1,12 +1,14 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { changeTaskIsCompletedSelector, deleteTaskSelector, showTaskNotCompletedSelector } from "../recoil/recoilState";
+import { changeTaskEditableSelector, changeTaskIsCompletedSelector, deleteTaskSelector, showTaskNotCompletedSelector } from "../recoil/recoilState";
 import { AllTasksAtomType, TaskAtomType } from "../types/recoilStateType";
-import { listArea, title, itemsArea, item, toDoneButton, deleteButton } from "../styles/notCompletedList";
+import { listArea, title, itemsArea, item, editButton, toDoneButton, deleteButton } from "../styles/notCompletedList";
+import EditForm from "./EditForm";
 
 const NotCompletedList = () => {
     const notCompletedTasks = useRecoilValue<AllTasksAtomType>(showTaskNotCompletedSelector);
     const setChangeTaskIsCompleted = useSetRecoilState<any>(changeTaskIsCompletedSelector);
     const setDeleteTask = useSetRecoilState<any>(deleteTaskSelector);
+    const setChangeTaskEditable = useSetRecoilState<any>(changeTaskEditableSelector);
 
     return (
         <div css={listArea}>
@@ -15,10 +17,19 @@ const NotCompletedList = () => {
             <div css={itemsArea}>
                 {notCompletedTasks.map((task: TaskAtomType, index: number) => (
                     <div key={index} css={item}>
-                        <p>
-                            <span>NO.{task.id}：</span>
-                            <span>{task.title}</span>
-                        </p>
+                        {task.edit ? (
+                            <EditForm
+                            id={task.id}
+                            title={task.title}
+                        />) : (
+                            <>
+                                <p>
+                                    <span>NO.{task.id}：</span>
+                                    <span>{task.title}</span>
+                                </p>
+                                <button onClick={() => setChangeTaskEditable(task)} css={editButton}>編集</button>
+                            </>
+                        )}
                         <button onClick={() => setChangeTaskIsCompleted(task)} css={toDoneButton}>完了</button>
                         <button onClick={() => setDeleteTask(task)} css={deleteButton}>削除</button>
                     </div>

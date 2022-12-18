@@ -23,6 +23,14 @@ const item = css`
     }
 `;
 
+const editButton = css`
+    width: 20%;
+    padding: 0.25rem 1rem;
+    margin-right: 0.5rem;
+    border-radius: 12px;
+    color: #2F2F2F;
+`;
+
 const toDoneButton = css`
     width: 20%;
     padding: 0.25rem 1rem;
@@ -44,6 +52,7 @@ export {
     title,
     itemsArea,
     item,
+    editButton,
     toDoneButton,
     deleteButton
 };
