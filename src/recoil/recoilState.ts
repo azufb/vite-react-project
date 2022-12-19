@@ -101,8 +101,8 @@ const deleteTaskSelector = selector<AllTasksAtomType>({
     get: ({ get }) => {
         return get(allTasksAtom);
     },
-    set: ({ get, set }, newValue: any) => {
-        const targetId: number = newValue.id;
+    set: ({ get, set }, targetTaskId: any) => {
+        const targetId: number = targetTaskId;
 
         const deletedArray: AllTasksAtomType = get(allTasksAtom).filter((task: TaskAtomType) => {
             return task.id !== targetId;
