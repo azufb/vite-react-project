@@ -118,13 +118,12 @@ const changeTaskIsCompletedSelector = selector<AllTasksAtomType>({
     get: ({ get }) => {
         return get(allTasksAtom);
     },
-    set: ({ get, set }, newValue: any) => {
-        const targetId: number = newValue.id;
-        const targetIsCompleted: boolean = newValue.isCompleted;
+    set: ({ get, set }, targetTaskId: any) => {
+        const targetId: number = targetTaskId;
 
         const newTasksArray: AllTasksAtomType = get(allTasksAtom).map((task: TaskAtomType) => {
             if (task.id === targetId) {
-                return {...task, isCompleted: !targetIsCompleted}
+                return {...task, isCompleted: !task.isCompleted}
             } else {
                 return task;
             }

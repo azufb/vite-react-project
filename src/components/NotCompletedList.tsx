@@ -10,6 +10,11 @@ const NotCompletedList = () => {
     const setDeleteTask = useSetRecoilState<any>(deleteTaskSelector);
     const setChangeTaskEditable = useSetRecoilState<any>(changeTaskEditableSelector);
 
+    // タスクの完了状態を切り替える
+    const changeTaskIsCompleted = (id: number): void => {
+        setChangeTaskIsCompleted(id);
+    };
+
     return (
         <div css={listArea}>
             <h2 css={title}>未完了のタスク</h2>
@@ -30,7 +35,7 @@ const NotCompletedList = () => {
                                 <button onClick={() => setChangeTaskEditable(task)} css={editButton}>編集</button>
                             </>
                         )}
-                        <button onClick={() => setChangeTaskIsCompleted(task)} css={toDoneButton}>完了</button>
+                        <button onClick={() => changeTaskIsCompleted(task.id)} css={toDoneButton}>完了</button>
                         <button onClick={() => setDeleteTask(task)} css={deleteButton}>削除</button>
                     </div>
                 ))}
