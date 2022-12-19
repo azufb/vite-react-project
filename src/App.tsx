@@ -15,9 +15,9 @@ const App = () => {
         <h1 css={title}>ToDoリスト</h1>
         <AddForm />
         <div css={tasksDisplayArea}>
-          <List />
-          {/*<NotCompletedList />
-          <CompletedList />*/}
+          {/*<List />*/}
+          <NotCompletedList />
+          <CompletedList />
         </div>
         {/*<Stats />*/}
       </div>
