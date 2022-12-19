@@ -13,6 +13,11 @@ const CompletedList = () => {
         setChangeTaskIsCompleted(id);
     };
 
+    // タスクを削除する
+    const deleteTask = (id: number): void => {
+        setDeleteTask(id);
+    };
+
     return (
         <div css={listArea}>
             <h2 css={title}>完了したタスク</h2>
@@ -25,7 +30,7 @@ const CompletedList = () => {
                             <span>{task.title}</span>
                         </p>
                         <button onClick={() => changeTaskIsCompleted(task.id)} css={backToDoButton}>未完了</button>
-                        <button onClick={() => setDeleteTask(task)} css={deleteButton}>削除</button>
+                        <button onClick={() => deleteTask(task.id)} css={deleteButton}>削除</button>
                     </div>
                 ))}
             </div>

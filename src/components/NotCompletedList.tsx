@@ -15,6 +15,11 @@ const NotCompletedList = () => {
         setChangeTaskIsCompleted(id);
     };
 
+    // タスクを削除する
+    const deleteTask = (id: number): void => {
+        setDeleteTask(id);
+    };
+
     return (
         <div css={listArea}>
             <h2 css={title}>未完了のタスク</h2>
@@ -36,7 +41,7 @@ const NotCompletedList = () => {
                             </>
                         )}
                         <button onClick={() => changeTaskIsCompleted(task.id)} css={toDoneButton}>完了</button>
-                        <button onClick={() => setDeleteTask(task)} css={deleteButton}>削除</button>
+                        <button onClick={() => deleteTask(task.id)} css={deleteButton}>削除</button>
                     </div>
                 ))}
             </div>
